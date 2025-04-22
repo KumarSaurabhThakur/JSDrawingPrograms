@@ -186,6 +186,7 @@ for (i = 0; i <= 10; i++)
 
 
 //PAINT BRUSH PROGRAM
+//PAINT BRUSH PROGRAM
 const canvas = document.querySelector("#canvas");
 
 canvas.width = 900;
@@ -199,52 +200,43 @@ let blueBtn = document.querySelector("#blueBtn");
 let greenBtn = document.querySelector("#greenBtn");
 let drawBtn = document.querySelector("#drawBtn");
 
+let brushColor; 
+
 redBtn.addEventListener("click", redColor);
-blueBrn.addEventListener("click", blueColor);
-greetnBtn.addEventListener("click", greenColor);
+blueBtn.addEventListener("click", blueColor);
+greenBtn.addEventListener("click", greenColor);
 drawBtn.addEventListener("click", drawClick);
 
 function redColor() {
-    brushColor = "red";
+    brushColor = redBtn.innerHTML;
 }
 function blueColor() {
-    brushColor = "blue";
+    brushColor = blueBtn.innerHTML;
 }
 function greenColor() {
-    brushColor = "green";
+    brushColor = greenBtn.innerHTML;
 }
-function drawColor() {
-    isClicked = false;
-    canvas.addEventListener('click', function (event) {
-        isClicked = true;
+function drawClick() {
+    let isDrawing = false;
+
+    canvas.addEventListener("mousedown", function () {
+        isDrawing = true;
     });
-    canvas.addEventListener("mousemove", function (event) {
-        if (isClicked == true) {
-            console.log(event);
-            context.beginPath();
-            context.arc(event.x, event.y, 0.1, 0, 2 * Math.PI);
 
-            if (color == "red")
-                context.fillStyle = "red";
-            context.fill();
-            context.closePath();
-        }
-    })
-}
-
-isClicked = false;
-canvas.addEventListener('click', function (event) {
-    isClicked = true;
-});
-canvas.addEventListener("mousemove", function (event) {
-    if (isClicked == true) {
-        console.log(event);
+    canvas.addEventListener("mouseup", function () {
+        isDrawing = false;
         context.beginPath();
-        context.arc(event.x, event.y, 0.1, 0, 2 * Math.PI);
+    });
 
-        if()
-        context.fillStyle = "slateblue";
-        context.fill();
+    canvas.addEventListener("mousemove", function (event) {
+        if (!isDrawing) return;
+
+        context.beginPath();
+        context.moveTo(event.offsetX, event.offsetY);
+        context.lineTo(event.offsetX+1, event.offsetY+1);
+        context.lineWidth = 5;
+        context.fillStyle = brushColor; 
+        context.stroke();
         context.closePath();
-    }
-})
+    });
+}
