@@ -194,3 +194,57 @@ canvas.style.background = "lightblue";
 
 const context = canvas.getContext("2d");
 
+let redBtn = document.querySelector("#redBtn");
+let blueBtn = document.querySelector("#blueBtn");
+let greenBtn = document.querySelector("#greenBtn");
+let drawBtn = document.querySelector("#drawBtn");
+
+redBtn.addEventListener("click", redColor);
+blueBrn.addEventListener("click", blueColor);
+greetnBtn.addEventListener("click", greenColor);
+drawBtn.addEventListener("click", drawClick);
+
+function redColor() {
+    brushColor = "red";
+}
+function blueColor() {
+    brushColor = "blue";
+}
+function greenColor() {
+    brushColor = "green";
+}
+function drawColor() {
+    isClicked = false;
+    canvas.addEventListener('click', function (event) {
+        isClicked = true;
+    });
+    canvas.addEventListener("mousemove", function (event) {
+        if (isClicked == true) {
+            console.log(event);
+            context.beginPath();
+            context.arc(event.x, event.y, 0.1, 0, 2 * Math.PI);
+
+            if (color == "red")
+                context.fillStyle = "red";
+            context.fill();
+            context.closePath();
+        }
+    })
+}
+
+isClicked = false;
+canvas.addEventListener('click', function (event) {
+    isClicked = true;
+});
+canvas.addEventListener("mousemove", function (event) {
+    if (isClicked == true) {
+        console.log(event);
+        context.beginPath();
+        context.arc(event.x, event.y, 0.1, 0, 2 * Math.PI);
+
+        if()
+        context.fillStyle = "slateblue";
+        context.fill();
+        context.closePath();
+    }
+})
